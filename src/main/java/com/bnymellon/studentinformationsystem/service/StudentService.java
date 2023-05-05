@@ -36,17 +36,25 @@ public class StudentService {
         return new ResponseEntity<>(repository.save(newStudent), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Student> updateStudent(Long STUDENT_IDENTIFIER, Student data, MultipartFile aadhar, MultipartFile communityCertificate, MultipartFile birthCertificate) {
-        Student student;
-        if(repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
+    public ResponseEntity<Student> updateStudent(Long STUDENT_IDENTIFIER, Student data, MultipartFile aadhar, MultipartFile communityCertificate, MultipartFile birthCertificate) throws IOException {
+        if (repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
-        data.setSTUDENT_IDENTIFIER(STUDENT_IDENTIFIER);
+        Student student = repository.findById(STUDENT_IDENTIFIER).get();
+        if (aadhar.getBytes() != student.getAADHAR_ID_BLOB()) {
+            data.setAADHAR_ID_BLOB(aadhar.getBytes());
+        }
+        if (communityCertificate.getBytes() != student.getCOMMUNITY_CERTIFICATE_BLOB()) {
+            data.setCOMMUNITY_CERTIFICATE_BLOB(communityCertificate.getBytes());
+        }
+        if (birthCertificate.getBytes() != student.getBIRTH_CERTIFICATE_BLOB()) {
+            data.setBIRTH_CERTIFICATE_BLOB(birthCertificate.getBytes());
+        }
         return new ResponseEntity<>(repository.save(data), HttpStatus.OK);
     }
 
     public ResponseEntity<Student> getStudent(Long STUDENT_IDENTIFIER) {
-        if(repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
+        if (repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
         return new ResponseEntity<>(repository.findById(STUDENT_IDENTIFIER).get(), HttpStatus.OK);
@@ -57,11 +65,11 @@ public class StudentService {
     }
 
     public ResponseEntity<Resource> getStudentAadhar(Long STUDENT_IDENTIFIER) {
-        if(repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
+        if (repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
         Student student = repository.findById(STUDENT_IDENTIFIER).get();
-        if(student.getAADHAR_ID_AVAILABLE_INDICATOR() == "Y") {
+        if (student.getAADHAR_ID_AVAILABLE_INDICATOR() == "Y") {
             InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(student.getAADHAR_ID_BLOB()));
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Disposition", "attachment; filename=\"" + student.getAADHAR_ID_FILENAME() + "\"");
@@ -70,16 +78,15 @@ public class StudentService {
                     .contentLength(student.getAADHAR_ID_BLOB().length)
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
-        }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aadhar Not Found");
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aadhar Not Found");
     }
 
     public ResponseEntity<Resource> getStudentBirthCertificate(Long STUDENT_IDENTIFIER) {
-        if(repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
+        if (repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
         Student student = repository.findById(STUDENT_IDENTIFIER).get();
-        if(student.getBIRTH_CERTIFICATE_AVAILABLE_INDICATOR() == "Y") {
+        if (student.getBIRTH_CERTIFICATE_AVAILABLE_INDICATOR() == "Y") {
             InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(student.getBIRTH_CERTIFICATE_BLOB()));
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Disposition", "attachment; filename=\"" + student.getBIRTH_CERTIFICATE_FILENAME() + "\"");
@@ -88,16 +95,15 @@ public class StudentService {
                     .contentLength(student.getBIRTH_CERTIFICATE_BLOB().length)
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
-        }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Birth Certificate Not Found");
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Birth Certificate Not Found");
     }
 
     public ResponseEntity<Resource> getStudentCommunityCertificate(Long STUDENT_IDENTIFIER) {
-        if(repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
+        if (repository.findById(STUDENT_IDENTIFIER).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
         Student student = repository.findById(STUDENT_IDENTIFIER).get();
-        if(student.getCOMMUNITY_CERTIFICATE_AVAILABLE_INDICATOR() == "Y") {
+        if (student.getCOMMUNITY_CERTIFICATE_AVAILABLE_INDICATOR() == "Y") {
             InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(student.getCOMMUNITY_CERTIFICATE_BLOB()));
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Disposition", "attachment; filename=\"" + student.getCOMMUNITY_CERTIFICATE_FILENAME() + "\"");
@@ -106,8 +112,7 @@ public class StudentService {
                     .contentLength(student.getCOMMUNITY_CERTIFICATE_BLOB().length)
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
-        }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Community Certificate Not Found");
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Community Certificate Not Found");
     }
 
 
