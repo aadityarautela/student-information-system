@@ -2,234 +2,239 @@ package com.bnymellon.studentinformationsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 @Entity
 public class Student {
-    @Column(name = "STUDENT_ID")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long STUDENT_IDENTIFIER;
 
-    @Column(name = "UDID")
+    @NotNull
     private Long UDID;
 
-    @Column(name = "EMIS_ID")
+    @NotNull
     private Long EMIS_IDENTIFIER;
 
-    @Column(name = "STUDENT_FST_NM", length = 20)
+    @NotNull
+    @Size(max = 20)
     private String STUDENT_FIRST_NAME;
 
-    @Column(name = "STUDENT_MID_NM", length = 20)
+    @Size(max = 20)
     private String STUDENT_MIDDLE_NAME;
 
-    @Column(name = "STUDENT_LAST_NM", length = 20)
+    @Size(max = 20)
     private String STUDENT_LAST_NAME;
 
-    @Column(name = "STUDENT_EMAIL_ADDR_TX", length = 20)
+    @NotNull
+    @Size(max = 20)
+    @Email
     private String STUDENT_EMAIL_ADDRESS_TEXT;
 
-    @Column(name = "STUDENT_CNTC_NR")
+    @NotNull
     @Size(min = 10, max = 10)
     private String STUDENT_CONTACT_NUMBER;
 
-    @Column(name = "ADMITTED_GRADE_TX", length = 3)
+    @NotNull
+    @Size(max = 3)
     private String ADMITTED_GRADE_TEXT;
 
-    @Column(name = "DSBL_IN")
+    @NotNull
     @Size(min = 1, max = 1)
     private String DISABILITY_INDICATOR;
 
-    @Column(name = "STUDENT_BRTH_MTH_NR")
+    @NotNull
     @Size(min = 2, max = 2)
     private String STUDENT_BIRTH_MONTH_NUMBER;
 
-    @Column(name = "STUDENT_BRTH_DY_NR")
+    @NotNull
     @Size(min = 2, max = 2)
     private String STUDENT_BIRTH_DAY_NUMBER;
 
-    @Column(name = "STUDENT_BRTH_YR")
+    @NotNull
     @Size(min = 4, max = 4)
     private String STUDENT_BIRTH_YEAR;
 
-    @Column(name = "STUDENT_GNDR_TX", length = 12)
+    @NotNull
+    @Size(max = 12)
     private String STUDENT_GENDER_TEXT;
 
-    @Column(name = "ADMISSION_MTH_NR")
+    @NotNull
     @Size(min = 2, max = 2)
     private String ADMISSION_MONTH_NUMBER;
 
-    @Column(name = "ADMISSION_DY_NR")
+    @NotNull
     @Size(min = 2, max = 2)
     private String ADMISSION_DAY_NUMBER;
 
-    @Column(name = "ADMISSION_YR")
+    @NotNull
     @Size(min = 4, max = 4)
     private String ADMISSION_YEAR;
 
-    @Column(name = "FATHER_NM", length = 30)
+
+    @Size(max = 30)
     private String FATHER_NAME;
 
-    @Column(name = "FATHER_OCPN_TX", length = 30)
+    @Size(max = 30)
     private String FATHER_OCCUPATION_TEXT;
 
-    @Column(name = "FATHER_ANNL_INCM_AM", precision = 18, scale = 3)
     private Double FATHER_ANNUAL_INCOME_AMOUNT;
 
-    @Column(name = "MTHR_NM", length = 30)
+    @Size(max = 30)
     private String MOTHER_NAME;
 
-    @Column(name = "MTHR_OCPN_TX", length = 30)
+    @Size(max = 30)
     private String MOTHER_OCCUPATION_TEXT;
 
-    @Column(name = "MTHR_ANNL_INCM_AM", precision = 18, scale = 3)
     private Double MOTHER_ANNUAL_INCOME_AMOUNT;
 
-    @Column(name = "STUDENT_AADHAR_ID", length = 12)
+    @Size(max = 12)
     private String STUDENT_AADHAR_IDENTIFIER;
 
-    @Column(name = "CUR_ADDR_LN_1_TX", length = 50)
+    @NotNull
+    @Size(max = 50)
     private String CURRENT_ADDRESS_LINE_1_TEXT;
 
-    @Column(name = "CUR_ADDR_LN_2_TX", length = 50)
+    @Size(max = 50)
     private String CURRENT_ADDRESS_LINE_2_TEXT;
 
-    @Column(name = "CUR_ADDR_LN_3_TX", length = 50)
+    @Size(max = 50)
     private String CURRENT_ADDRESS_LINE_3_TEXT;
 
-    @Column(name = "CUR_ADDR_CITY_NM", length = 30)
+    @NotNull
+    @Size(max = 30)
     private String CURRENT_ADDRESS_CITY_NAME;
 
-    @Column(name = "CUR_ADDR_ST_NM", length = 30)
+    @NotNull
+    @Size(max = 30)
     private String CURRENT_ADDRESS_STATE_NAME;
 
-    @Column(name = "CUR_ADDR_ZIP_CD", length = 6)
+    @NotNull
+    @Size(max = 6)
     private String CURRENT_ADDRESS_ZIP_CODE;
 
-    @Column(name = "PMNT_ADDR_LN_1_TX", length = 50)
+    @NotNull
+    @Size(max = 50)
     private String PERMANENT_ADDRESS_LINE_1_TEXT;
 
-    @Column(name = "PMNT_ADDR_LN_2_TX", length = 50)
+    @Size(max = 50)
     private String PERMANENT_ADDRESS_LINE_2_TEXT;
 
-    @Column(name = "PMNT_ADDR_LN_3_TX", length = 50)
+    @Size(max = 50)
     private String PERMANENT_ADDRESS_LINE_3_TEXT;
 
-    @Column(name = "PMNT_ADDR_CITY_NM", length = 30)
+    @NotNull
+    @Size(max = 30)
     private String PERMANENT_ADDRESS_CITY_NAME;
 
-    @Column(name = "PMNT_ADDR_ST_NM", length = 30)
+    @NotNull
+    @Size(max = 30)
     private String PERMANENT_ADDRESS_STATE_NAME;
 
-    @Column(name = "PMNT_ADDR_ZIP_CD", length = 6)
+    @NotNull
+    @Size(max = 6)
     private String PERMANENT_ADDRESS_ZIP_CODE;
 
-    @Column(name = "PRIM_CNTC_NM", length = 30)
+    @NotNull
+    @Size(max = 30)
     private String PRIMARY_CONTACT_NAME;
 
-    @Column(name = "PRIM_CNTC_NR")
+    @NotNull
     @Size(min = 10, max = 10)
     private String PRIMARY_CONTACT_NUMBER;
 
-    @Column(name = "PRIM_CNTC_RLN_TX", length = 20)
+    @Size(max = 20)
     private String PRIMARY_CONTACT_RELATIONSHIP_TEXT;
 
-    @Column(name = "SCND_CNTC_NM", length = 30)
+    @Size(max = 30)
     private String SECONDARY_CONTACT_NAME;
 
-    @Column(name = "SCND_CNTC_NR")
     @Size(min = 10, max = 10)
     private String SECONDARY_CONTACT_NUMBER;
 
-    @Column(name = "SCND_CNTC_RLN_TX", length = 20)
+    @Size(max = 20)
     private String SECONDARY_CONTACT_RELATIONSHIP_TEXT;
 
-    @Column(name = "PHYSICIAN_NM", length = 30)
+    @Size(max = 30)
     private String PHYSICIAN_NAME;
 
-    @Column(name = "PHYSICIAN_PRIM_CNTC_NR")
     @Size(min = 10, max = 10)
     private String PHYSICIAN_PRIMARY_CONTACT_NUMBER;
 
-    @Column(name = "PHYSICIAN_SCND_CNTC_NR")
     @Size(min = 10, max = 10)
     private String PHYSICIAN_SECONDARY_CONTACT_NUMBER;
 
-    @Column(name = "PREF_EMERGNCY_HSPTAL_NM", length = 80)
+    @Size(max = 80)
     private String PREFERRED_EMERGENCY_HOSPITAL_NAME;
 
-    @Column(name = "CUR_MED_DTL_TX", length = 100)
+    @Size(max = 100)
     private String CURRENT_MEDICATION_DETAIL_TEXT;
 
-    @Column(name = "MED_ALLRGY_DTL_TX", length = 100)
+    @Size(max = 100)
     private String MEDICAL_ALLERGY_DETAIL_TEXT;
 
-    @Column(name = "FOOD_ALLRGY_DTL_TX", length = 100)
+    @Size(max = 100)
     private String FOOD_ALLERGY_DETAIL_TEXT;
 
-    @Column(name = "CHRONIC_HLTH_ISS_DTL_TX", length = 100)
+    @Size(max = 100)
     private String CHRONIC_HEALTH_ISSUE_DETAIL_TEXT;
 
-    @Column(name = "PREV_SCHOOL_NM", length = 80)
+    @Size(max = 80)
     private String PREVIOUS_SCHOOL_NAME;
 
-    @Column(name = "PREV_SCHOOL_CITY_NM", length = 30)
+    @Size(max = 30)
     private String PREVIOUS_SCHOOL_CITY_NAME;
 
-    @Column(name = "PREV_SCHOOL_ST_NM", length = 30)
+    @Size(max = 30)
     private String PREVIOUS_SCHOOL_STATE_NAME;
 
-    @Column(name = "PREV_SCHOOL_ADMISSION_DT")
     private Date PREVIOUS_SCHOOL_ADMISSION_DATE;
 
-    @Column(name = "PREV_SCHOOL_LAST_DT")
     private Date PREVIOUS_SCHOOL_LAST_DATE;
 
-    @Column(name = "ADDL_DTLS_TX", length = 100)
+    @Size(max = 100)
     private String ADDITIONAL_DETAILS_TEXT;
 
-    @Column(name = "BRTH_CERT_AVLB_IN")
+    @NotNull
     @Size(min = 1, max = 1)
     private String BIRTH_CERTIFICATE_AVAILABLE_INDICATOR;
 
-    @Column(name = "AADHAR_ID_AVLB_IN")
+    @NotNull
     @Size(min = 1, max = 1)
     private String AADHAR_ID_AVAILABLE_INDICATOR;
 
-    @Column(name = "CMTY_CERT_APPL_IN")
+    @NotNull
     @Size(min = 1, max = 1)
     private String COMMUNITY_CERTIFICATE_APPLICABLE_INDICATOR;
 
-    @Column(name = "CMTY_CERT_AVLB_IN")
+    @NotNull
     @Size(min = 1, max = 1)
     private String COMMUNITY_CERTIFICATE_AVAILABLE_INDICATOR;
 
-    @Column(name = "WHATSAPP_NR")
     @Size(min = 10, max = 10)
     private String WHATSAPP_NUMBER;
 
-    @Column(name = "BRTH_CERT_BLOB")
     @Lob
     private byte[] BIRTH_CERTIFICATE_BLOB;
 
-    @Column(name = "BRTH_CERT_FILENAME")
     private String BIRTH_CERTIFICATE_FILENAME;
 
-    @Column(name = "AADHAR_ID_BLOB")
     @Lob
     private byte[] AADHAR_ID_BLOB;
 
-    @Column(name = "AADHAR_ID_FILENAME")
     private String AADHAR_ID_FILENAME;
 
-    @Column(name = "CMTY_CERT_BLOB")
     @Lob
     private byte[] COMMUNITY_CERTIFICATE_BLOB;
 
-    @Column(name = "CMTY_CERT_FILENAME")
     private String COMMUNITY_CERTIFICATE_FILENAME;
+
+    private boolean IS_DEACTIVATED;
 
     public Student() {
     }
@@ -299,6 +304,7 @@ public class Student {
         this.BIRTH_CERTIFICATE_FILENAME = newStudent.getBIRTH_CERTIFICATE_FILENAME();
         this.AADHAR_ID_FILENAME = newStudent.getAADHAR_ID_FILENAME();
         this.COMMUNITY_CERTIFICATE_FILENAME = newStudent.getCOMMUNITY_CERTIFICATE_FILENAME();
+        this.IS_DEACTIVATED = false;
     }
 
     public Long getSTUDENT_IDENTIFIER() {
@@ -795,7 +801,7 @@ public class Student {
     }
 
     public void setBIRTH_CERTIFICATE_BLOB(byte[] BIRTH_CERTIFICATE_BLOB) {
-        this.BIRTH_CERTIFICATE_BLOB = BIRTH_CERTIFICATE_BLOB;
+        this.BIRTH_CERTIFICATE_BLOB = Arrays.copyOf(BIRTH_CERTIFICATE_BLOB, BIRTH_CERTIFICATE_BLOB.length);
     }
 
     public String getBIRTH_CERTIFICATE_FILENAME() {
@@ -812,7 +818,7 @@ public class Student {
     }
 
     public void setAADHAR_ID_BLOB(byte[] AADHAR_ID_BLOB) {
-        this.AADHAR_ID_BLOB = AADHAR_ID_BLOB;
+        this.AADHAR_ID_BLOB = Arrays.copyOf(AADHAR_ID_BLOB, AADHAR_ID_BLOB.length);
     }
 
     public String getAADHAR_ID_FILENAME() {
@@ -829,7 +835,7 @@ public class Student {
     }
 
     public void setCOMMUNITY_CERTIFICATE_BLOB(byte[] COMMUNITY_CERTIFICATE_BLOB) {
-        this.COMMUNITY_CERTIFICATE_BLOB = COMMUNITY_CERTIFICATE_BLOB;
+        this.COMMUNITY_CERTIFICATE_BLOB = Arrays.copyOf(COMMUNITY_CERTIFICATE_BLOB, COMMUNITY_CERTIFICATE_BLOB.length);
     }
 
     public String getCOMMUNITY_CERTIFICATE_FILENAME() {
@@ -838,5 +844,13 @@ public class Student {
 
     public void setCOMMUNITY_CERTIFICATE_FILENAME(String COMMUNITY_CERTIFICATE_FILENAME) {
         this.COMMUNITY_CERTIFICATE_FILENAME = COMMUNITY_CERTIFICATE_FILENAME;
+    }
+
+    public boolean isIS_DEACTIVATED() {
+        return IS_DEACTIVATED;
+    }
+
+    public void setIS_DEACTIVATED(boolean IS_DEACTIVATED) {
+        this.IS_DEACTIVATED = IS_DEACTIVATED;
     }
 }

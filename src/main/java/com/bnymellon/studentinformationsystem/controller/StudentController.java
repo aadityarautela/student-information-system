@@ -18,11 +18,8 @@ public class StudentController {
     }
 
     @PostMapping("/student")
-    public ResponseEntity<Student> createStudent(@RequestParam(name = "data") Student data,
-                                                 @RequestParam(name = "aadhar", required = false) MultipartFile aadhar,
-                                                 @RequestParam(name = "community_certificate", required = false) MultipartFile communityCertificate,
-                                                 @RequestParam(name = "birth_certificate", required = false) MultipartFile birthCertificate) {
-        return service.createStudent(data, aadhar, communityCertificate, birthCertificate);
+    public ResponseEntity<Student> createStudent(@RequestBody Student data) {
+        return service.createStudent(data, null, null, null);
     }
 
     @GetMapping("/student")
@@ -36,12 +33,28 @@ public class StudentController {
     }
 
     @PutMapping("/student/{STUDENT_IDENTIFIER}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long STUDENT_IDENTIFIER,
-                                                 @RequestParam(name = "data") Student data,
-                                                 @RequestParam(name = "aadhar", required = false) MultipartFile aadhar,
-                                                 @RequestParam(name = "community_certificate", required = false) MultipartFile communityCertificate,
-                                                 @RequestParam(name = "birth_certificate", required = false) MultipartFile birthCertificate) {
-        return service.updateStudent(STUDENT_IDENTIFIER, data, aadhar, communityCertificate, birthCertificate);
+    public ResponseEntity<Student> updateStudent(@PathVariable Long STUDENT_IDENTIFIER, @RequestBody Student data) {
+        return service.updateStudent(STUDENT_IDENTIFIER, data, null, null, null);
+    }
+
+    @GetMapping("/student/{STUDENT_IDENTIFIER}/deactivate")
+    public ResponseEntity<Student> deactivateStudent(@PathVariable Long STUDENT_IDENTIFIER) {
+        return service.deactivateStudent(STUDENT_IDENTIFIER);
+    }
+
+    @PostMapping("/student/{STUDENT_IDENTIFIER}/aadhar")
+    public ResponseEntity<String> setStudentAadhar(@PathVariable Long STUDENT_IDENTIFIER, @RequestPart MultipartFile file) {
+        return service.setStudentAadhar(STUDENT_IDENTIFIER, file);
+    }
+
+    @PostMapping("/student/{STUDENT_IDENTIFIER}/birth_certificate")
+    public ResponseEntity<String> setStudentBirthCertificate(@PathVariable Long STUDENT_IDENTIFIER, @RequestPart MultipartFile file) {
+        return service.setStudentBirthCertificate(STUDENT_IDENTIFIER, file);
+    }
+
+    @PostMapping("/student/{STUDENT_IDENTIFIER}/community_certificate")
+    public ResponseEntity<String> setStudentCommunityCertificate(@PathVariable Long STUDENT_IDENTIFIER, @RequestPart MultipartFile file) {
+        return service.setStudentCommunityCertificate(STUDENT_IDENTIFIER, file);
     }
 
     @GetMapping("/student/{STUDENT_IDENTIFIER}/aadhar")
